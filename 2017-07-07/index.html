@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Postman @Fastly</title>
+
+		<meta name="description" content="Enhancing user experience for the Fastly API">
+		<meta name="author" content="Philipp Schulte">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/solarized.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>Postman</h1>
+					<h3>Enhancing user experience for the Fastly API</h3>
+					<p>
+						<small>Created by <a href="http://www.philippschulte.com">Philipp Schulte</a> / <a href="https://www.github.com/philippschulte/fastlyApiCollection">fastlyApiCollection</a></small>
+					</p>
+				</section>
+
+				<section>
+					<h2>Motivation</h2>
+				</section>
+
+				<section>
+					<h2>Who knows Postman?</h2>
+				</section>
+
+				<section>
+					<h2>What is Postman?</h2>
+					<p class="fragment fade-up">It's a replacement for <span style="color:red;">cURL</span>.</p>
+					<p class="fragment fade-up">It's a complex tool for <span style="color:red;">API</span> development.</p>
+					<p class="fragment fade-up">Especially used for <span style="color:red;">integration</span> and <span style="color:red;">system testing</span>.</p>
+				</section>
+
+				<section>
+					<img src="./images/postman.png" alt="Postman's key features" style="background:none; border:none; box-shadow:none;" height="auto" width="80%">
+				</section>
+
+				<section>
+					<h2>What is the Postman Sandbox?</h2>
+				</section>
+
+				<section>
+					<h2>Create an Edge Dictionary</h2>
+					<span style="display:inline-block; font-size:75%;">
+						<span style="color:orange; font-weight:bold;">POST</span>
+						<span style="color:orange;">{{url}}</span>
+						/service/
+						<span style="color:orange;">{{service_id}}</span>
+						/version/
+						<span style="color:orange;">{{version_no}}</span>
+						/dictionary
+					</span>
+
+					<pre><code class="hljs" data-trim contenteditable>
+						var jsonData = JSON.parse(responseBody);
+
+						postman.setEnvironmentVariable("dictionary_id", jsonData.id);
+						postman.setEnvironmentVariable("dictionary_name", jsonData.name);
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Create an Edge Dictionary Item</h2>
+					<span style="display:inline-block; font-size:75%;">
+						<span style="color:orange; font-weight:bold;">POST</span>
+						<span style="color:orange;">{{url}}</span>
+						/service/
+						<span style="color:orange;">{{service_id}}</span>
+						/dictionary/
+						<span style="color:orange;">{{dictionary_id}}</span>
+						/item
+					</span>
+				</section>
+
+				<section>
+					<h2>Update an Edge Dictionary</h2>
+					<span style="display:inline-block; font-size:75%;">
+						<span style="color:#268bd2; font-weight:bold;">PUT</span>
+						<span style="color:orange;">{{url}}</span>
+						/service/
+						<span style="color:orange;">{{service_id}}</span>
+						/version/
+						<span style="color:orange;">{{version_no}}</span>
+						/dictionary/
+						<span style="color:orange;">{{dictionary_name}}</span>
+					</span>
+
+					<pre><code class="hljs" data-trim contenteditable>
+						var jsonData = JSON.parse(responseBody);
+						postman.setEnvironmentVariable("dictionary_name", jsonData.name);
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Delete an Edge Dictionary</h2>
+					<span style="display:inline-block; font-size:75%;">
+						<span style="color:red; font-weight:bold;">DELETE</span>
+						<span style="color:orange;">{{url}}</span>
+						/service/
+						<span style="color:orange;">{{service_id}}</span>
+						/version/
+						<span style="color:orange;">{{version_no}}</span>
+						/dictionary/
+						<span style="color:orange;">{{dictionary_name}}</span>
+					</span>
+
+					<pre><code class="hljs" data-trim contenteditable>
+						if (responseCode.code === 200) {
+					    postman.clearEnvironmentVariable("dictionary_id");
+					    postman.clearEnvironmentVariable("dictionary_name");
+						}
+					</code></pre>
+
+					<span style="display:inline-block; font-size:75%;">
+						<span style="color:red; font-weight:bold;">DELETE</span>
+						<span style="color:orange;">{{url}}</span>
+						/service/
+						<span style="color:orange;">{{service_id}}</span>
+						/version/
+						<span style="color:orange;">{{version_no}}</span>
+						/dictionary/
+						<span style="color:red;">{{dictionary_name}}</span>
+					</span>
+				</section>
+
+				<section>
+					<h2>Let's see Postman in action!</h2>
+					<ul>
+						<li>Sequential requests</li>
+						<li>Code snippets</li>
+						<li>Running tests</li>
+						<li>Purging</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Who uses Postman?</h2>
+					<img src="./images/slack.png" alt="Slack" style="background:none; border:none; box-shadow:none;" height="auto" width="100%">
+					<a href="https://www.yelp.com/developers/documentation/v3/get_started" target="_blank">
+						<img src="./images/yelp.png" alt="Yelp" style="background:none; border:none; box-shadow:none; margin-right:50px;" width="250">
+					</a>
+					<a href="https://apidocs.imgur.com/" target="_blank">
+						<img src="./images/imgur.png" alt="Imgur" style="background:none; border:none; box-shadow:none; margin-right:50px" width="250">
+					</a>
+					<a href="https://developer.okta.com/docs/api/getting_started/api_test_client.html" target="_blank">
+						<img src="./images/okta.png" alt="Okta" style="background:none; border:none; box-shadow:none;" width="250">
+					</a>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
