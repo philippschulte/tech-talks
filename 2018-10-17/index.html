@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Semantic Commits</title>
+
+		<meta name="description" content="Edge Dictionaries on Steroids">
+		<meta name="author" content="Philipp Schulte">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/solarized.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>Semantic Commits</h1>
+					<h3>A pattern for more readable messages</h3>
+					<p>
+						<small>Philipp Schulte - AppEng Summit 2018</small>
+					</p>
+				</section>
+
+				<section>
+					<h2>What are semantic commit messages?</h2>
+					<p class="fragment fade-up">Precise rules over how a <span style="color:red;">git</span> commit messages can be formatted. Usually you see this pattern only for <span style="color:red;">packages</span>, <span style="color:red;">libraries</span>, and <span style="color:red;">languages</span>.</p>
+				</section>
+
+				<section>
+					<h2>Motivation</h2>
+				</section>
+				
+				<section>
+					<img src="./images/josh_commit_history.png" alt="Josh's commit history" style="background:none; border:none;" height="auto" width="90%">
+				</section>
+
+				<section>
+					<h2>Pattern</h2>
+					<p>
+						<span style="color:red;">type</span>
+						<span>(</span>
+						<span style="color:orange;">scope</span>
+						<span>)</span>
+						<span>:</span>
+						<span>&nbsp; Short description</span>
+					</p>
+				</section>
+
+				<section>
+					<h2>Types</h2>
+					<p>
+						<span style="color:red;">feat</span>,
+						<span style="color:red;">fix</span>,
+						<span style="color:red;">docs</span>,
+						<span style="color:red;">style</span>,
+						<span style="color:red;">refactor</span>,
+						<span style="color:red;">perf</span>,
+						<span style="color:red;">test</span>,
+						<span style="color:red;">build</span>,
+						<span style="color:red;">ci</span>,
+						<span style="color:red;">chore</span>,
+						<span style="color:red;">revert</span>
+					</p>
+				</section>
+
+				<section data-background="https://media.giphy.com/media/3o6UBil4zn1Tt03PI4/giphy.gif">
+					<h2 style="color:white;">Types, Scope, WTF</h2>
+				</section>
+
+				<section>
+					<h2>Global Setup</h2>
+					<ol>
+						<li>Install <span style="color:red;">commitizen</span> and an adapter globally</li>
+						<pre><code class="hlbash" data-trim contenteditable>
+							$ npm install -g commitizen cz-conventional-changelog
+						</code></pre>
+						<li>Create a <span style="color:red;">.czrc</span> file in your home directory, with path referring to the preferred, globally installed, <span style="color:red;">commitizen</span> adapter</li>
+						<pre><code class="hlbash" data-trim contenteditable>
+								$ echo '{ "path": "cz-conventional-changelog" }' > ~/.czrc
+							</code></pre>
+					</ol>
+				</section>
+
+				<section>
+					<h2>Git Workflow</h2>
+					<pre><code class="hlbash" data-trim contenteditable>
+						$ git add .
+						$ git cz
+						$ git push
+					</code></pre>
+					<p class="fragment fade-up">Note: You can still use all the <span style="color:red;">git commit</span> options with <span style="color:red;">git cz</span>, for example: <span style="color:red;">git cz -a</span>.</p>
+				</section>
+
+				<section data-background-video="./videos/cz.mov,video.webm"></section>
+
+				<section>
+					<h2>Conclusion</h2>
+					<ul>
+						<li class="fragment fade-up">Simple and fast global setup</span></li>
+						<li class="fragment fade-up">Easy usage via <span style="color:red;">commitizen's</span> command prompt</li>
+						<li class="fragment fade-up">Instead of <span style="color:red;">git commit</span> we use <span style="color:red;">git cz</span></li>
+						<li class="fragment fade-up">No disadvantages because all options are still available</li>
+						<li class="fragment fade-up">Readable commits</li>
+						<li class="fragment fade-up">Consistent format and history</li>
+						<li class="fragment fade-up">Easy filtering e.g. <span style="color:red;">git log --grep="feat"</span></li>
+					</ul>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
